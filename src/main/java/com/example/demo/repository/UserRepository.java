@@ -22,4 +22,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
   //where name = ? or email = ?
   List<User> findByNameOrEmail(String name, String email);
+
+  //where user_id betwwen ? and ?
+  List<User> findByUserIdBetween(int startUserIId, int endUserId);
+
 }

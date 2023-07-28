@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory; //javax.persistence로 시작하는 패키지들은 다 jpa api이다. jpa에서 정의된 것
 import javax.persistence.EntityTransaction;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -30,7 +31,15 @@ public class SpringdatajpaApplication implements CommandLineRunner { // 스프�
     @Transactional // 메소드가 시작할 때 트랜잭션이 실행되고, 메소드가 종료될 때 트랜잭션이 commit된다.
     // 중간에 RuntimeException이 발생하면 트랜잭션이 rollback된다.
     public void run(String... args) throws Exception {
-       Optional<User> user = userRepository.findByNameAndEmail("second", "second@gmail.com");
-        System.out.println(user);
+//       Optional<User> user = userRepository.findByNameAndEmail("second", "second@gmail.com");
+//        System.out.println(user);
+      List<User> users = userRepository.findByUserIdBetween(1, 3);
+        for (User user : users) {
+            System.out.println(user);
+        }
+
+
+        
+
     }
 }
