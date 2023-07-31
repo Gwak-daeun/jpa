@@ -1,7 +1,9 @@
 package com.example.demo;
 
+import com.example.demo.domain.Board;
 import com.example.demo.domain.Role;
 import com.example.demo.domain.User;
+import com.example.demo.repository.BoardRepository;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +35,18 @@ public class SpringdatajpaApplication implements CommandLineRunner { // 스프�
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    BoardRepository boardRepository;
+
     @Override
     @Transactional // 메소드가 시작할 때 트랜잭션이 실행되고, 메소드가 종료될 때 트랜잭션이 commit된다.
     // 중간에 RuntimeException이 발생하면 트랜잭션이 rollback된다.
     public void run(String... args) throws Exception {
 
-        List<User> all = userRepository.findAll();
-        for (User user : all) {
-            System.out.println(user);
+        List<Board> all = boardRepository.findAll(); // select * from user; 4rjs 1 + N 문제
+        for (Board board : all) {
+            System.out.println(board);
+
         }
 
     }
