@@ -1,11 +1,16 @@
 package com.example.demo;
 
+import com.example.demo.domain.Role;
 import com.example.demo.domain.User;
+import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -22,24 +27,21 @@ public class SpringdatajpaApplication implements CommandLineRunner { // 스프�
         SpringApplication.run(SpringdatajpaApplication.class, args);
     }
 
-    //스프링이 제공하는 빈을 주입받는다.
     @Autowired
-    UserRepository userRepository; // UserRepository를 구현하고 있는 빈을 자동으로 주입한다.
-    //이 UserRepository를 사용해서 해당 엔티티의 crud작업을 할 수 있다.
+    UserRepository userRepository;
 
-    @Override // CommandLineRunner가 갖고 있는 run()메소드를 오버라이딩. 이 메소드에서 스프링이 제공하는 빈을 쓸 수 있다.
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Override
     @Transactional // 메소드가 시작할 때 트랜잭션이 실행되고, 메소드가 종료될 때 트랜잭션이 commit된다.
     // 중간에 RuntimeException이 발생하면 트랜잭션이 rollback된다.
     public void run(String... args) throws Exception {
-//       Optional<User> user = userRepository.findByNameAndEmail("second", "second@gmail.com");
-//        System.out.println(user);
-      List<User> users = userRepository.findByUserIdBetween(1, 3);
-        for (User user : users) {
+
+        List<User> all = userRepository.findAll();
+        for (User user : all) {
             System.out.println(user);
         }
-
-
-        
 
     }
 }
