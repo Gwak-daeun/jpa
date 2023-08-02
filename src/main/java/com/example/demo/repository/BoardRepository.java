@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.Board;
+import com.example.demo.dto.BoardIf;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -20,4 +21,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Query(value = "select count(b) from Board b")
     Long getBoardCount();
+
+    @Query(value = "select b.board_id, b.title, b.content, b.user_id, u.name, b.regdate, b.view_cnt from board b, user u where b.user_id = u.user_id",
+    nativeQuery = true
+    )
+    List<BoardIf> getBoardsWithNativeQuery();
 }

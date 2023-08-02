@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.domain.Board;
 import com.example.demo.domain.Role;
 import com.example.demo.domain.User;
+import com.example.demo.dto.BoardIf;
 import com.example.demo.repository.BoardRepository;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
@@ -43,9 +44,9 @@ public class SpringdatajpaApplication implements CommandLineRunner { // 스프�
     // 중간에 RuntimeException이 발생하면 트랜잭션이 rollback된다.
     public void run(String... args) throws Exception {
 
-        List<Board> all = boardRepository.findAll(); // select * from user; 4rjs 1 + N 문제
-        for (Board board : all) {
-            System.out.println(board);
+        List<BoardIf> all = boardRepository.getBoardsWithNativeQuery(); // select * from user; 4rjs 1 + N 문제
+        for (BoardIf board : all) {
+            System.out.println(board.getClass().getName());
 
         }
 
