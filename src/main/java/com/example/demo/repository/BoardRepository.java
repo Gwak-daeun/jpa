@@ -17,4 +17,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     //join b.user=> board b와 user 엔티티를 조인하라는 뜻. 조인하고 sql이 실행됨
     // join fetch을 통해 1 + n 문제를 해결할 수 있게 됨. join fetch를 할 땐, 반드시 board 엔티티의 유저 속성으로
     //조인을 해야 1 + n문제가 해결된다. 일반적으로 조인하는 on 조건문이 뒤에 오면 해결되지 않는다.
+
+    @Query(value = "select count(b) from Board b")
+    Long getBoardCount();
 }
